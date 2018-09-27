@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+	    <meta charset="utf-8">
+	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+	    <title>摩斯码加解密</title>
+		<!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+		<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+	    <script src="http://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+
+		<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+		<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+		<!--morse code 加解密-->
+		<script type="text/javascript" src="xmorse.min.js"></script>
+	</head>
+	<body>
+		<div class="container">
+			 <div class="col-md-10">
+			 	<div class="form-group">
+				 	<h4>加解密内容：</h4>
+					<textarea id="content" class="form-control" rows="10"></textarea>
+				</div>
+				<div class="form-group" style="text-align:center">
+					<button type="button" class="btn btn-success" onclick="decode()">解密(decode)</button>
+					<button type="button" class="btn btn-primary" onclick="encode()">加密(encode)</button>	
+				</div>
+				<div class="form-group">
+					<div class="panel panel-success">
+					  <div class="panel-heading">
+					    <h3 class="panel-title">结果</h3>
+					  </div>
+					  <div class="panel-body" id="result">
+					  </div>
+					</div>
+				</div>
+			 </div>
+		</div>
+	</body>
+	<script>
+		var option = {
+		  space: ' ' ,
+		  long: '-',
+		  short: '.'
+		};
+		function encode(){
+			var content = $("#content").val();
+			if (content){
+				var result = xmorse.encode(content, option);
+				$("#result").text(result);
+			} else {
+				alert("请输入加密内容");
+			}
+		}
+		function decode(){
+			var content = $("#content").val();
+			if (content){
+				var result = xmorse.decode(content, option);
+				if(result != null && result != ''){
+					$("#result").text(result);
+				} else {
+					alert("解密内容有误")
+				}
+			} else {
+				alert("请输入解密内容");
+			}
+		}
+	</script>
+</html>
